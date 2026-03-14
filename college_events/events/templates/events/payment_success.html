@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow p-5 text-center col-md-6 mx-auto">
+
+    <h2 class="text-success">Payment Successful ✅</h2>
+
+    <p class="mt-3"><strong>Event:</strong> {{ event.title }}</p>
+    <p><strong>Amount Paid:</strong> ₹{{ event.price }}</p>
+
+    {% if receipt %}
+      <p>Receipt: <a href="{{ receipt }}" target="_blank">Download PDF</a></p>
+    {% endif %}
+
+    <div class="mt-4">
+      <a href="{% url 'events:event_detail' event.id %}" class="btn btn-primary">
+        Go to Event
+      </a>
+      <a href="{% url 'events:my_registrations' %}" class="btn btn-success">
+        My Registrations
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

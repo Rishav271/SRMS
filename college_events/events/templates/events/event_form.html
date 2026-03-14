@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+        <div class="card-header bg-primary text-white text-center py-4">
+          <h3 class="fw-bold mb-0">
+            {% if form.instance.pk %} ✏️ Edit Event {% else %} 🎉 Create New Event {% endif %}
+          </h3>
+        </div>
+        <div class="card-body p-4 bg-light">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form|crispy %}
+              {{ form|crispy }}
+            {% else %}
+              {{ form.as_p }}
+            {% endif %}
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-success px-5 rounded-pill shadow-sm">
+                💾 Save Event
+              </button>
+              <a href="{% url 'events:home' %}" class="btn btn-outline-secondary px-5 rounded-pill ms-2">
+                ❌ Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .card {
+    transition: transform 0.3s ease-in-out;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  form input, form textarea, form select {
+    border-radius: 10px !important;
+  }
+  .btn-success:hover {
+    background-color: #198754;
+    transform: scale(1.03);
+  }
+  .btn-outline-secondary:hover {
+    background-color: #e9ecef;
+  }
+</style>
+{% endblock %}
